@@ -15,7 +15,7 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
 rule {
    metric_trigger {
       metric_name  ="Percentage CPU"
-      metric_resource_id = azurerm_orchestrated_virtual_machine_
+      metric_resource_id = azurerm_orchestrated_virtual_machine_scale_set.vmss_terraform_tutorial.id
       operator = "LessThan"
       statistic ="Average"
       time_aggregation ="Average"
@@ -33,7 +33,7 @@ rule {
 rule {
     metric_trigger {
     metric_name = "Percentage CPU"
-    metric_resource_id = azurerm_orchestrated_virtual_machine_
+    metric_resource_id = azurerm_orchestrated_virtual_machine_scale_set.vmss_terraform_tutorial.id
     operator = "LessThan"
     statistic ="Average"
     time_aggregation ="Average"
