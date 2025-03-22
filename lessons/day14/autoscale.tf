@@ -12,7 +12,42 @@ resource "azurerm_monitor_autoscale_setting" "autoscale" {
       minimum = 1
       maximum = 10
     }
-
+rule {
+   metric_trigger {
+      metric_name  ="Percentage CPU"
+      metric_resource_id = azurerm_orchestrated_virtual_machine_
+      operator = "LessThan"
+      statistic ="Average"
+      time_aggregation ="Average"
+      time_window = "PT2M"
+      time_grain = "PT1M"
+      thershold = 10
+    }
+   scale_action{
+      direction ="Decrease"
+      type = "ChangeCount"
+      value ="1"
+      cooldown ="PT1M"
+    }
+}
+rule {
+    metric_trigger {
+    metric_name = "Percentage CPU"
+    metric_resource_id = azurerm_orchestrated_virtual_machine_
+    operator = "LessThan"
+    statistic ="Average"
+    time_aggregation ="Average"
+    time_window = "PT2M"
+    time_grain = "PT1M"
+    thershold = 90
+  }
+ scale_action{
+    direction ="Increase"
+    type = "ChangeCount"
+    value ="1"
+    cooldown ="PT1M"
+  }
+}
     
   }
 }
